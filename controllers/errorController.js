@@ -62,13 +62,18 @@ module.exports = (err, req, res, next) => {
     // eslint-disable-next-line node/no-unsupported-features/es-syntax
     let error = { ...err };
     error.name = err.name;
+
     // For Invalid Ids
     if (error.name === 'CastError') {
       error = handleCastErrorDB(error);
     }
+
+    // For duplicate fields(checking unique)
     if (error.code === 11000) {
       error = handleDuplicateFieldsDB(error);
     }
+
+    // For handling invalid inputs
     if (error.name === 'ValidationError')
       error = handleValidationErrorDb(error);
     if (error.name === 'JsonWebTokenError') error = handleTokenError(error);

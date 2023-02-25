@@ -5,8 +5,7 @@ mongoose.set('strictQuery', false);
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
-    // useCreateIndex: true,
-    // useFindAndModify: false,
+    useUnifiedTopology: true,
   })
   .then(() => console.log('DB CONNECTED'))
   .catch((err) => console.log('ERROR', err));
