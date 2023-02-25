@@ -1,20 +1,11 @@
 const mongoose = require('mongoose');
+const DB = process.env.DATABASE;
 
-console.log('testing');
-(async () => {
-  await mongoose.connect(process.env.DATABASE);
-  const db = mongoose.connection;
-  // .then((db) => console.log('DB connected ', { db }))
-  // .catch((err) => console.log('Error In Connection', { err }));
-  db.on('connected', () => {
-    console.log('DB IS CONNEcTED');
-  });
-
-  db.on('error', () => {
-    console.log('DB IS CONNEcTED');
-  });
-
-  db.on('disconnected', () => {
-    console.log('DB IS CONNEcTED');
-  });
-})();
+mongoose.set('strictQuery', false);
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('DB CONNECTED'))
+  .catch((err) => console.log('ERROR', err));
