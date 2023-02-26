@@ -1,4 +1,5 @@
 const express = require('express');
+const { protect } = require('../controllers/authController');
 const router = express.Router();
 
 const {
@@ -8,6 +9,6 @@ const {
 } = require('../controllers/productController');
 
 router.route('/:id').get(getProduct);
-router.route('/').get(getAllProducts).post(createProducts);
+router.route('/').get(protect, getAllProducts).post(createProducts);
 
 module.exports = router;
