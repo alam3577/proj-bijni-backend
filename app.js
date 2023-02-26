@@ -4,7 +4,8 @@ dotenv.config({ path: './config.env' });
 const express = require('express');
 const morgan = require('morgan');
 
-const productRoute = require('./routes/productRoutes');
+const productRoute = require('./routes/productRoute');
+const userRoute = require('./routes/userRoute');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -26,6 +27,7 @@ app.use(express.json());
 
 // own middleware
 app.use('/api/v1/proj-bijni', productRoute);
+app.use('/api/v1/proj-bijni', userRoute);
 
 // handling unhandled routes
 app.all('*', (req, res, next) => {
@@ -42,6 +44,7 @@ require('./config/index');
 process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);
   console.log('Unhandled Rejection Shutting down');
+  // eslint-disable-next-line no-undef
   server.close(() => {
     process.exit(1);
   });
